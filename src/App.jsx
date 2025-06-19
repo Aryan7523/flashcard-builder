@@ -37,6 +37,17 @@ const App = () => {
     setFlashcards(flashcards.filter(card => card.id !== id));
   };
 
+  // ✅ EDIT flashcard function
+  const handleEdit = (id, updatedQuestion, updatedAnswer) => {
+    setFlashcards((prevCards) =>
+      prevCards.map((card) =>
+        card.id === id
+          ? { ...card, question: updatedQuestion, answer: updatedAnswer }
+          : card
+      )
+    );
+  };
+
   return (
     <div className="App">
       {/* Top-right dark mode toggle */}
@@ -58,7 +69,11 @@ const App = () => {
       </GradientText>
 
       <FlashcardForm onAdd={addFlashcard} />
-      <FlashcardList flashcards={flashcards} onDelete={deleteFlashcard} />
+      <FlashcardList
+        flashcards={flashcards}
+        onDelete={deleteFlashcard}
+        onEdit={handleEdit} // ✅ Now properly connected
+      />
     </div>
   );
 };
